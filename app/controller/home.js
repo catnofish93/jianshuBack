@@ -9,8 +9,8 @@ class HomeController extends Controller {
   }
   async login() {
     const ctx = this.ctx;
-    console.log(ctx.request.body)
-    const user = await ctx.service.user.login(ctx.request.body);
+    console.log(ctx.query.phone)
+    const user = await ctx.service.user.login({phone: ctx.query.phone});
     ctx.body = user;
   }
 }
