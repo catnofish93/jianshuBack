@@ -10,8 +10,8 @@ class HomeController extends Controller {
   async login() {
     const ctx = this.ctx;
     console.log(ctx.request.body)
-    // const user = await ctx.service.user.login('16602719762');
-    ctx.body = 'test';
+    const user = await ctx.service.user.login(ctx.request.body);
+    ctx.body = user;
   }
 }
 
