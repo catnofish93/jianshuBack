@@ -51,6 +51,7 @@ module.exports = appInfo => {
     // 密码
     password: '123456',
   };
+  config.middleware = [ 'response' ];
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
