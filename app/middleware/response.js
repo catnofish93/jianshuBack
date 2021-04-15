@@ -3,7 +3,7 @@ module.exports = () => {
     await next();
     let body = ctx.body;
     ctx.body = {
-      success: true,
+      success: Object.keys(body).length > 0 ?true:false,
       data: body,
       code: 10000
     }

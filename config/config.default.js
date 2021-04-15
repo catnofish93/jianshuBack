@@ -52,6 +52,18 @@ module.exports = appInfo => {
     password: '123456',
   };
   config.middleware = [ 'response' ];
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true,
+    },
+    domainWhiteList: [ '*' ],
+  };
+
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
