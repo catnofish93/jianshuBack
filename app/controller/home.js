@@ -7,12 +7,6 @@ class HomeController extends Controller {
     const { ctx } = this;
     ctx.body = 'hi, egg';
   }
-  async login() {
-    const ctx = this.ctx;
-    console.log(ctx.query.phone)
-    const user = await ctx.service.user.login({phone: ctx.query.phone});
-    ctx.body = user;
-  }
 }
 
 module.exports = HomeController;
