@@ -1,11 +1,11 @@
 module.exports = () => {
   return async function response(ctx, next) {
     await next();
-    let body = ctx.body;
+    const body = ctx.body;
     ctx.body = {
-      success: Object.keys(body).length > 0 ?true:false,
+      success: Object.keys(body).length > 0,
       data: body,
-      code: 10000
-    }
+      code: 10000,
+    };
   };
 };
