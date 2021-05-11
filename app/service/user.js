@@ -7,5 +7,9 @@ class UserService extends Service {
     const user = await this.app.mysql.get('user', { password: password.phone });
     return user;
   }
+  async register(params) {
+    console.log(params)
+    return params;
+  }
 }
 module.exports = UserService;

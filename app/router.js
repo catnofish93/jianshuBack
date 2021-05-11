@@ -7,5 +7,5 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
   router.post('/login', controller.login.login);
-  router.resources('users', '/users', controller.users);
+  router.post('/register', controller.login.register);
 };
