@@ -2,7 +2,6 @@ const Controller = require('egg').Controller;
 
 class LoginController extends Controller {
   async login() {
-    console.log(this.app.model.query)
     const ctx = this.ctx;
     const body = ctx.request.body;
     const res = await ctx.model.User.findOne({
@@ -19,6 +18,10 @@ class LoginController extends Controller {
   }
   async register() {
     const ctx = this.ctx;
+    const body = ctx.request.body;
+    console.log(ctx.request.body, '11111')
+    const res = await ctx.service.user.register(body);
+    ctx.body = res;
   }
 }
 module.exports = LoginController;
