@@ -26,7 +26,7 @@ module.exports = appInfo => {
   config.mysql = {
     client: {
       // host
-      host: 'localhost',
+      host: '121.5.235.7',
       // 端口号
       port: '3306',
       // 用户名
@@ -43,7 +43,7 @@ module.exports = appInfo => {
   };
   config.sequelize = {
     dialect: 'mysql',
-    host: 'localhost',
+    host: '121.5.235.7',
     port: 3306,
     database: 'jianshu',
     // 用户名
@@ -51,7 +51,7 @@ module.exports = appInfo => {
     // 密码
     password: '123456',
   };
-  config.middleware = [ 'response' ];
+  // config.middleware = [ 'response' ];
   config.security = {
     csrf: {
       enable: false,
