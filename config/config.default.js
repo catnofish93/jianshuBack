@@ -64,6 +64,9 @@ module.exports = appInfo => {
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
+  config.jwt = {
+    secret: '123456',
+  };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
