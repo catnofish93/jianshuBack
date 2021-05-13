@@ -1,27 +1,25 @@
-const Controller = require('egg').Controller;
+const Controller = require('../core/baseController');
 
 class LoginController extends Controller {
   async login() {
     const ctx = this.ctx;
     const body = ctx.request.body;
-    const res = await ctx.model.User.findOne({
-      where: {
-        ...body,
-      },
-    });
-    if (!body.phone) {
-      ctx.body = res ? res : {};
-    } else if (!body.password) {
-      ctx.body = res ? res : {};
+    try {
+      const res = await ctx.service.user.login(body);
+      ctx.body = this.success(res);
+    } catch (e) {
+      ctx.body = this.fail(e);
     }
-    ctx.body = res ? res : {};
   }
   async register() {
     const ctx = this.ctx;
     const body = ctx.request.body;
-    console.log(ctx.request.body, '11111')
-    const res = await ctx.service.user.register(body);
-    ctx.body = res;
+    try {
+      const res = await ctx.service.user.register(body);
+      ctx.body = this.success(res);
+    } catch (e) {
+      ctx.body = this.fail(e);
+    }
   }
 }
 module.exports = LoginController;
