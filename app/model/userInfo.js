@@ -8,7 +8,7 @@ module.exports = app => {
     collect: STRING(255),
     like: STRING(255),
     fans: STRING(255),
-  })
+  });
 
-  return userInfo
-}
+  return userInfo;
+};

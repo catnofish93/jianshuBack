@@ -1,11 +1,25 @@
 const Controller = require('../core/baseController');
-
 class Article extends Controller {
   async getArticleList() {
     const ctx = this.ctx;
     ctx.body = this.success({
-      a: '1111111'
+      a: '1111111',
     });
+  }
+  async addArtile() {
+    const ctx = this.ctx;
+    try {
+      const res = await ctx.model.Article.create({
+        title: ctx.request.body.title,
+        content: ctx.request.body.content,
+        authorName: ctx.request.body.authorName,
+        authorId: ctx.request.body.authorId,
+      });
+      ctx.body = this.success(res);
+    } catch (e) {
+      console.log((e))
+      ctx.body = this.fail('新增文章失败');
+    }
   }
 }
 
