@@ -5,8 +5,10 @@ class UserService extends Service {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const ctx = this.ctx;
     const body = ctx.request.body;
-    if (!body.phone) {
+    if (body.phone !== undefined && !body.phone) {
       throw '请输入手机号';
+    } else if (body.email !== undefined && !body.email) {
+      throw '请输入邮箱';
     } else if (!body.password) {
       throw '请输入密码';
     }
