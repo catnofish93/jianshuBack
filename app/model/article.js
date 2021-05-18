@@ -7,12 +7,27 @@ module.exports = app => {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     title: STRING(30),
     content: STRING(255),
-    authorName: STRING(10),
-    authorId: INTEGER,
-    readNum: INTEGER,
-    zanNum: INTEGER,
-    languageNum: INTEGER,
-    updateTime: DATE,
+    author_name: STRING(10),
+    author_id: INTEGER,
+    discription: STRING(100),
+    comment_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    read_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    zan_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    language_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    created_at: DATE,
+    updated_at: DATE,
   });
 
   return article;
