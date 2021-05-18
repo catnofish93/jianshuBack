@@ -24,8 +24,10 @@ module.exports = {
       read_num: INTEGER,
       zan_num: INTEGER,
       language_num: INTEGER,
+      comment_num: INTEGER,
       created_at: DATE,
       updated_at: DATE,
+      discription: STRING(100)
     });
     await queryInterface.createTable('userInfos', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },

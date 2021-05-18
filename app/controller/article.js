@@ -20,6 +20,7 @@ class Article extends Controller {
         content: ctx.request.body.content,
         authorName: ctx.request.body.authorName,
         authorId: ctx.request.body.authorId,
+        discription: ctx.request.body.discription
       });
       ctx.body = this.success(res);
     } catch (e) {

@@ -9,9 +9,23 @@ module.exports = app => {
     content: STRING(255),
     author_name: STRING(10),
     author_id: INTEGER,
-    read_num: INTEGER,
-    zan_num: INTEGER,
-    language_num: INTEGER,
+    discription: STRING(100),
+    comment_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    read_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    zan_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+    language_num: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
     created_at: DATE,
     updated_at: DATE,
   });
