@@ -7,7 +7,7 @@ module.exports = app => {
       await next();
       console.log(decode);
     } catch (error) {
-      ctx.status = 401;
+      ctx.status = 200;
       ctx.body = {
         code: 5000,
         message: 'token失效或解析错误',

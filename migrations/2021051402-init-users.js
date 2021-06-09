@@ -11,6 +11,7 @@ module.exports = {
       email: STRING,
       password: STRING(30),
       age: INTEGER,
+      sex: INTEGER,
       photo_url: STRING,
       created_at: DATE,
       updated_at: DATE,
@@ -25,9 +26,10 @@ module.exports = {
       zan_num: INTEGER,
       language_num: INTEGER,
       comment_num: INTEGER,
+      like_num: INTEGER,
       created_at: DATE,
       updated_at: DATE,
-      discription: STRING(100)
+      discription: STRING(100),
     });
     await queryInterface.createTable('userInfos', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
@@ -36,6 +38,13 @@ module.exports = {
       collect: STRING,
       like: STRING,
       fans: STRING,
+    });
+    await queryInterface.createTable('searches', {
+      id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+      name: STRING,
+      search_num: INTEGER,
+      created_at: DATE,
+      updated_at: DATE,
     });
   },
   // 在执行数据库降级时调用的函数，删除 users 表
