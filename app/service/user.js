@@ -22,7 +22,7 @@ class UserService extends Service {
         ...body,
       }, this.app.config.jwt.secret);
       return {
-        token,
+        token
       };
     } else {
       throw '该账户不存在';
