@@ -9,7 +9,7 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.get('/getSearchList', auth, controller.search.list);
   router.post('/login', controller.login.login);
-  router.post('/register', auth, controller.login.register);
+  router.post('/register', controller.login.register);
   router.post('/articleList', auth, controller.article.getArticleList);
   router.post('/addArticle', auth, controller.article.addArtile);
   router.post('/articleDetail', auth, controller.article.articleDetail);
