@@ -29,7 +29,7 @@ module.exports = {
       like_num: INTEGER,
       created_at: DATE,
       updated_at: DATE,
-      discription: STRING(100),
+      discription: STRING(500),
     });
     await queryInterface.createTable('userInfos', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
