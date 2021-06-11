@@ -67,6 +67,9 @@ module.exports = appInfo => {
   config.jwt = {
     secret: '123456',
   };
+  config.multipart = {
+    mode: 'file'
+  };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

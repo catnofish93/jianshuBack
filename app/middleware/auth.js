@@ -7,6 +7,7 @@ module.exports = app => {
       await next();
       console.log(decode);
     } catch (error) {
+      console.log(error)
       ctx.status = 200;
       ctx.body = {
         code: 5000,
