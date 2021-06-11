@@ -13,4 +13,5 @@ module.exports = app => {
   router.post('/articleList', auth, controller.article.getArticleList);
   router.post('/addArticle', auth, controller.article.addArtile);
   router.post('/articleDetail', auth, controller.article.articleDetail);
+  router.post('/upload', auth, controller.upload.upload);
 };
