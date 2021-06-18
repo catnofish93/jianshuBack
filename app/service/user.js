@@ -20,22 +20,22 @@ class UserService extends Service {
     if (res) {
       const token = this.app.jwt.sign({
         ...body,
-      }, this.app.config.jwt.secret);
+      }, this.app.config.jwt.secret, { expiresIn: '1h' });
       return {
-        token
+        token,
       };
-    } else {
-      throw '该账户不存在';
     }
+    throw '该账户不存在';
+
   }
   async register(params) {
     const ctx = this.ctx;
     if (!params.phone) {
-      throw '请输入手机号'
+      throw '请输入手机号';
     } else if (!params.password) {
-      throw '请输入密码'
+      throw '请输入密码';
     } else if (!params.name) {
-      throw '请输入昵称'
+      throw '请输入昵称';
     }
     const users = await ctx.model.User.findAll({
       where: {
@@ -43,14 +43,14 @@ class UserService extends Service {
       },
     });
     if (users.length > 0) {
-      throw '该账号已注册'
+      throw '该账号已注册';
     } else {
       const res = await ctx.model.User.create({
         name: params.name,
         phone: params.phone,
         password: params.password,
       });
-      return res
+      return res;
     }
   }
 }

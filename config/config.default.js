@@ -65,7 +65,10 @@ module.exports = appInfo => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
   config.jwt = {
-    secret: '123456',
+    secret: '123456'
+  };
+  config.static = {
+    maxAge: 31536000,
   };
   // add your user config here
   const userConfig = {

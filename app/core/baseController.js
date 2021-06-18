@@ -14,5 +14,13 @@ class BaseController extends Controller {
       code: 5000,
     };
   }
+  page(data, total, pageSize, pageSum) {
+    return {
+      list: data,
+      total,
+      pageSize,
+      pageSum
+    }
+  }
 }
 module.exports = BaseController;

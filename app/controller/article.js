@@ -4,7 +4,6 @@ class Article extends Controller {
   async getArticleList() {
     const ctx = this.ctx;
     try {
-      console.log(ctx.request.body.search)
       if (ctx.request.body.search) {
         await this.ctx.model.transaction(async t => {
           const res = await ctx.model.Search.findAll({
@@ -42,10 +41,11 @@ class Article extends Controller {
         const res = await ctx.model.Article.findAll({
           limit: 10
         });
-        ctx.body = this.success(res);
+        console.log(res)
+        const { count } = await ctx.model.Article.findAndCountAll()
+        ctx.body = this.success(this.page(res, count, 10, 1));
       }
     } catch (e) {
-      console.log(e);
       ctx.body = this.fail('查询文章列表失败');
     }
   }
@@ -54,7 +54,6 @@ class Article extends Controller {
     const startIndex = ctx.request.body.content.indexOf('<p>');
     const endIndex = ctx.request.body.content.indexOf('</p>');
     const discription1 = ctx.request.body.content.substring(startIndex + 3, endIndex)
-    console.log(discription1)
     try {
       const res = await ctx.model.Article.create({
         title: ctx.request.body.title,
@@ -65,7 +64,6 @@ class Article extends Controller {
       });
       ctx.body = this.success(res);
     } catch (e) {
-      console.log(e)
       ctx.body = this.fail('新增文章失败');
     }
   }
@@ -80,6 +78,24 @@ class Article extends Controller {
       ctx.body = this.success(res);
     } catch (e) {
       ctx.body = this.fail('查看文章详情失败');
+    }
+  }
+  async clickZan() {
+    const ctx = this.ctx;
+    try {
+      const res= await ctx.model.Article.update({
+
+      })
+    } catch (e) {
+      ctx.body = this.fail('点赞失败');
+    }
+  }
+  async comment() {
+    const ctx = this.ctx
+    try {
+
+    } catch (e) {
+      ctx.body = this.fail('评论失败');
     }
   }
 }
