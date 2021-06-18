@@ -10,8 +10,7 @@ class UploadController extends Controller {
       const filename = new Date().getTime() + stream.filename; // stream对象也包含了文件名，大小等基本信息
 
       // 创建文件写入路径
-      const target = path.join('./app', `static/${filename}`);
-
+      const target = path.join('./app', `public/images/${filename}`);
       const result = await new Promise((resolve, reject) => {
         // 创建文件写入流
         const remoteFileStrem = fs.createWriteStream(target);
@@ -35,7 +34,21 @@ class UploadController extends Controller {
           resolve({ filename, name: stream.fields.name });
         });
       });
-      ctx.body = this.success(result);
+      try {
+        await ctx.model.User.update({
+          photo_url: this.ctx.request.protocol + '://' + this.ctx.request.headers.host + '/public/images/' + filename,
+        }, {
+          where: {
+            id: stream.fields.id,
+          },
+        });
+        ctx.body = this.success({
+          url: this.ctx.request.protocol + '://' + this.ctx.request.headers.host + '/public/images/' + filename,
+        });
+      } catch (e) {
+        console.log(e)
+        ctx.body = this.fail(e);
+      }
     } finally {
       await ctx.cleanupRequestFiles();
     }

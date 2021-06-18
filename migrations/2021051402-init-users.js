@@ -46,6 +46,11 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     });
+    await queryInterface.createTable('comments', {
+      id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+      comment: STRING,
+      article_id: INTEGER,
+    });
   },
   // 在执行数据库降级时调用的函数，删除 users 表
   down: async queryInterface => {

@@ -9,6 +9,7 @@ module.exports = app => {
     phone: STRING(30),
     password: STRING(30),
     age: INTEGER,
+    photo_url: STRING(100),
     created_at: DATE,
     updated_at: DATE,
   });
