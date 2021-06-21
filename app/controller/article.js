@@ -84,7 +84,9 @@ class Article extends Controller {
     const ctx = this.ctx;
     try {
       const res= await ctx.model.Article.update({
-
+        zan_num: 1
+      }, where:{
+        id: ctx.body.id
       })
     } catch (e) {
       ctx.body = this.fail('点赞失败');
