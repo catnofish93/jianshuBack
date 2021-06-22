@@ -51,6 +51,12 @@ module.exports = {
       comment: STRING,
       article_id: INTEGER,
     });
+    await queryInterface.createTable('zans', {
+      id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+      userId: INTEGER,
+      articleId: INTEGER,
+      zan: INTEGER
+    })
   },
   // 在执行数据库降级时调用的函数，删除 users 表
   down: async queryInterface => {

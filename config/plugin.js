@@ -21,3 +21,7 @@ exports.validate = {
   enable: true,
   package: 'egg-validate',
 };
+exports.swaggerdoc = {
+  enable: true,
+  package: 'eegg-swagger-doc'
+}
