@@ -80,26 +80,20 @@ class Article extends Controller {
       ctx.body = this.fail('查看文章详情失败');
     }
   }
-  async clickZan() {
-    const ctx = this.ctx;
-    try {
-      const res= await ctx.model.Article.update({
-        zan_num: 1
-      }, where:{
-        id: ctx.body.id
-      })
-    } catch (e) {
-      ctx.body = this.fail('点赞失败');
-    }
-  }
-  async comment() {
-    const ctx = this.ctx
-    try {
-
-    } catch (e) {
-      ctx.body = this.fail('评论失败');
-    }
-  }
+  // async clickZan() {
+  //   const ctx = this.ctx;
+  //   try {
+  //   } catch (e) {
+  //     ctx.body = this.fail('点赞失败');
+  //   }
+  // }
+  // async comment() {
+  //   const ctx = this.ctx
+  //   try {
+  //   } catch (e) {
+  //     ctx.body = this.fail('评论失败');
+  //   }
+  // }
 }
 
 module.exports = Article;
