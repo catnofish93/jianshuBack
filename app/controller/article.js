@@ -1,6 +1,15 @@
 const Controller = require('../core/baseController');
 const { Op } = require('sequelize');
+
+/**
+ * @Controller 文章
+ */
 class Article extends Controller {
+  /**
+   * @Router POST /articleList
+   * @description 获取文章列表
+   * @return {Promise<void>}
+   */
   async getArticleList() {
     const ctx = this.ctx;
     try {
@@ -39,10 +48,10 @@ class Article extends Controller {
         ctx.body = this.success(res);
       } else {
         const res = await ctx.model.Article.findAll({
-          limit: 10
+          limit: 10,
         });
-        console.log(res)
-        const { count } = await ctx.model.Article.findAndCountAll()
+        console.log(res);
+        const { count } = await ctx.model.Article.findAndCountAll();
         ctx.body = this.success(this.page(res, count, 10, 1));
       }
     } catch (e) {
@@ -53,14 +62,14 @@ class Article extends Controller {
     const ctx = this.ctx;
     const startIndex = ctx.request.body.content.indexOf('<p>');
     const endIndex = ctx.request.body.content.indexOf('</p>');
-    const discription1 = ctx.request.body.content.substring(startIndex + 3, endIndex)
+    const discription1 = ctx.request.body.content.substring(startIndex + 3, endIndex);
     try {
       const res = await ctx.model.Article.create({
         title: ctx.request.body.title,
         content: ctx.request.body.content,
         authorName: ctx.request.body.authorName,
         authorId: ctx.request.body.authorId,
-        discription: discription1
+        discription: discription1,
       });
       ctx.body = this.success(res);
     } catch (e) {
