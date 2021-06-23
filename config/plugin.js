@@ -23,5 +23,5 @@ exports.validate = {
 };
 exports.swaggerdoc = {
   enable: true,
-  package: 'eegg-swagger-doc'
+  package: 'egg-swagger-doc',
 }

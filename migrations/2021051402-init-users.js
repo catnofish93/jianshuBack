@@ -38,6 +38,7 @@ module.exports = {
       collect: STRING,
       like: STRING,
       fans: STRING,
+      introduce: STRING(100)
     });
     await queryInterface.createTable('searches', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },

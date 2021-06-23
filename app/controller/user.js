@@ -1,15 +1,14 @@
 const Controller = require('../core/baseController');
-
 class User extends Controller {
   async getUserIntroduce() {
     try {
       const ctx = this.ctx;
-      const res = ctx.model.User.findOne({
-        attributes: ['introduction']
-      },{
+      const res = ctx.model.UserInfo.findOne({
+        attributes: [ 'introduce' ],
+      }, {
         where: {
-          id: ctx.request.query.id
-        }
+          userId: ctx.request.query.id,
+        },
       });
       this.success(res);
     } catch (e) {
@@ -19,10 +18,10 @@ class User extends Controller {
   async getUserInfo() {
     try {
       const ctx = this.ctx;
-      const res = ctx.model.User.findOne({
+      const res = ctx.model.UserInfo.findOne({
         where: {
-          id: ctx.request.query.id
-        }
+          userId: ctx.request.query.id,
+        },
       });
       this.success(res);
     } catch (e) {
@@ -32,12 +31,12 @@ class User extends Controller {
   async setUserIntroduce() {
     try {
       const ctx = this.ctx;
-      const res = ctx.model.User.update({ introduction: ctx.request.body.introduction }, {
+      const res = ctx.model.UserInfo.update({ introduce: ctx.request.body.introduce }, {
         where: {
-          id: ctx.request.body.id,
+          userId: ctx.request.body.id,
         },
       });
-      this.success();
+      this.success(res);
     } catch (e) {
       this.fail(e);
     }
