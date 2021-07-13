@@ -10,9 +10,11 @@ module.exports = app => {
   router.post('/login', controller.login.login);
   router.post('/register', controller.login.register);
   router.post('/articleList', auth, controller.article.getArticleList);
+  router.post('/clickZan', auth, controller.article.clickZan);
   router.post('/addArticle', auth, controller.article.addArtile);
   router.post('/articleDetail', auth, controller.article.articleDetail);
   router.post('/upload', auth, controller.upload.upload);
   router.post('/userInfo/getIntroduce', auth, controller.user.getUserIntroduce);
   router.post('/userInfo/setIntroduce', auth, controller.user.setUserIntroduce);
+  router.post('/userInfo//getUserInfo', auth, controller.user.getUserInfo);
 };
