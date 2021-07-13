@@ -1,6 +1,13 @@
 const Controller = require('../core/baseController');
-
+/**
+ * @Controller 关键字
+ */
 class LoginController extends Controller {
+  /**
+   * @Router POST /getSearchList
+   * @description 根据关键字查询
+   * @return {Promise<void>}
+   */
   async list() {
     const ctx = this.ctx;
     const body = ctx.request.body;

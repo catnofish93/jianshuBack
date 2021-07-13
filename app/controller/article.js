@@ -8,6 +8,7 @@ class Article extends Controller {
   /**
    * @Router POST /articleList
    * @description 获取文章列表
+   * @Request body string search 查询关键字
    * @return {Promise<void>}
    */
   async getArticleList() {
@@ -58,6 +59,11 @@ class Article extends Controller {
       ctx.body = this.fail('查询文章列表失败');
     }
   }
+  /**
+   * @Router POST /addArticle
+   * @description 新增文章
+   * @return {Promise<void>}
+   */
   async addArtile() {
     const ctx = this.ctx;
     const startIndex = ctx.request.body.content.indexOf('<p>');
@@ -76,6 +82,11 @@ class Article extends Controller {
       ctx.body = this.fail('新增文章失败');
     }
   }
+  /**
+   * @Router POST /articleDetail
+   * @description 文章详情
+   * @return {Promise<void>}
+   */
   async articleDetail() {
     const ctx = this.ctx;
     try {
@@ -89,20 +100,18 @@ class Article extends Controller {
       ctx.body = this.fail('查看文章详情失败');
     }
   }
-  // async clickZan() {
-  //   const ctx = this.ctx;
-  //   try {
-  //   } catch (e) {
-  //     ctx.body = this.fail('点赞失败');
-  //   }
-  // }
-  // async comment() {
-  //   const ctx = this.ctx
-  //   try {
-  //   } catch (e) {
-  //     ctx.body = this.fail('评论失败');
-  //   }
-  // }
+  /**
+   * @Router POST /clickZan
+   * @description 点赞
+   * @return {Promise<void>}
+   */
+  async clickZan() {
+    const ctx = this.ctx;
+    try {
+    } catch (e) {
+      ctx.body = this.fail('点赞失败');
+    }
+  }
 }
 
 module.exports = Article;

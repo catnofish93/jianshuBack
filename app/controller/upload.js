@@ -2,7 +2,15 @@ const Controller = require('../core/baseController');
 const fs = require('fs');
 const path = require('path');
 const sendToWormhole = require('stream-wormhole');
+/**
+ * @Controller 上传图片
+ */
 class UploadController extends Controller {
+  /**
+   * @Router POST /upload
+   * @description 上传图片返回路径
+   * @return {Promise<void>}
+   */
   async upload() {
     const ctx = this.ctx;
     try {
