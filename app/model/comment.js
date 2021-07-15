@@ -5,6 +5,7 @@ module.exports = app => {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     comment: STRING,
     article_id: INTEGER,
+    userId: INTEGER
   });
   return comment;
 };

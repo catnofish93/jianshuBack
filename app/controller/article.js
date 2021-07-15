@@ -49,7 +49,7 @@ class Article extends Controller {
         ctx.body = this.success(res);
       } else {
         const res = await ctx.model.Article.findAll({
-          limit: 10,
+          limit: ctx.body.pageSize,
         });
         console.log(res);
         const { count } = await ctx.model.Article.findAndCountAll();
@@ -108,8 +108,69 @@ class Article extends Controller {
   async clickZan() {
     const ctx = this.ctx;
     try {
+      const res = await ctx.model.Zan.findOne({
+        where: {
+          userId: ctx.request.body.userId,
+          articleId: ctx.request.body.articleId,
+        },
+      });
+      if (res) {
+        await ctx.model.Zan.destrory({
+          where: {
+            userId: ctx.request.body.userId,
+            articleId: ctx.request.body.articleId,
+          },
+        });
+      } else {
+        await ctx.model.Zan.create({
+          userId: ctx.request.body.userId,
+          articleId: ctx.request.body.articleId,
+          zan: 1,
+        });
+      }
+      ctx.body = this.fail('点赞成功');
     } catch (e) {
       ctx.body = this.fail('点赞失败');
+    }
+  }
+  async comment() {
+    const ctx = this.ctx;
+    try {
+      const res = await ctx.model.Comment.create({
+        userId: ctx.request.body.userId,
+        articleId: ctx.request.body.articleId,
+        comment: ctx.request.body.comment,
+      });
+      ctx.body = this.success(res);
+    } catch (e) {
+      ctx.body = this.fail('评论失败');
+    }
+  }
+  async authorArticle() {
+    const ctx = this.ctx;
+    try {
+      const res = await ctx.model.Article.findAll({
+        limit: ctx.request.body.pageSize,
+        offset: ctx.request.body.pageSize * ctx.request.body.pageNum,
+        userId: ctx.request.body.userId,
+      });
+      ctx.body = this.total(res, 10, ctx.request.body.pageSize, ctx.request.body.pageNum);
+    } catch (e) {
+      ctx.body = this.fail('获取文章列表失败');
+    }
+  }
+  async recommendArticle() {
+    const ctx = this.ctx;
+    try {
+      const res = await ctx.model.Article.findAll({
+        order: [
+          'read_num', 'DESC',
+        ],
+        limit: 5,
+      });
+      ctx.body = this.success(res);
+    } catch (e) {
+      ctx.body = this.fail('获取推荐文章列表失败');
     }
   }
 }

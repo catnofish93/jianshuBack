@@ -14,12 +14,12 @@ class BaseController extends Controller {
       code: 5000,
     };
   }
-  page(data, total, pageSize, pageSum) {
+  page(data, total, pageSize, pageNum) {
     return {
       list: data,
       total,
       pageSize,
-      pageSum
+      pageNum
     }
   }
 }

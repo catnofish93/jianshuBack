@@ -50,6 +50,7 @@ module.exports = {
     await queryInterface.createTable('comments', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       comment: STRING,
+      userId: INTEGER,
       article_id: INTEGER,
     });
     await queryInterface.createTable('zans', {
