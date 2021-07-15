@@ -141,7 +141,7 @@ class Article extends Controller {
         articleId: ctx.request.body.articleId,
         comment: ctx.request.body.comment,
       });
-      ctx.body = this.fail('评论成功');
+      ctx.body = this.success(res);
     } catch (e) {
       ctx.body = this.fail('评论失败');
     }
@@ -149,9 +149,28 @@ class Article extends Controller {
   async authorArticle() {
     const ctx = this.ctx;
     try {
-      const res = await ctx.model.Article.findOne({
-
-      })
+      const res = await ctx.model.Article.findAll({
+        limit: ctx.request.body.pageSize,
+        offset: ctx.request.body.pageSize * ctx.request.body.pageNum,
+        userId: ctx.request.body.userId,
+      });
+      ctx.body = this.total(res, 10, ctx.request.body.pageSize, ctx.request.body.pageNum);
+    } catch (e) {
+      ctx.body = this.fail('获取文章列表失败');
+    }
+  }
+  async recommendArticle() {
+    const ctx = this.ctx;
+    try {
+      const res = await ctx.model.Article.findAll({
+        order: [
+          'read_num', 'DESC',
+        ],
+        limit: 5,
+      });
+      ctx.body = this.success(res);
+    } catch (e) {
+      ctx.body = this.fail('获取推荐文章列表失败');
     }
   }
 }
