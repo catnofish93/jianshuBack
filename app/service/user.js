@@ -50,6 +50,10 @@ class UserService extends Service {
         phone: params.phone,
         password: params.password,
       });
+      console.log(res.id)
+      await ctx.model.UserInfo.create({
+        user_id: res.id,
+      });
       return res;
     }
   }

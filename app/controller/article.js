@@ -90,6 +90,17 @@ class Article extends Controller {
   async articleDetail() {
     const ctx = this.ctx;
     try {
+      // const readNum = await ctx.model.Article.findOne({
+      //   attributes: ['read_num']
+      // }, where: {
+      //   id: id: ctx.request.body.id
+      // })
+      // await ctx.model.Article.update({
+      //   read_num: readNum + 1
+      // }, where: {
+      //   id: id: ctx.request.body.id
+      // })
+      ctx.model.Article.update()
       const res = await ctx.model.Article.findOne({
         where: {
           id: ctx.request.body.id,

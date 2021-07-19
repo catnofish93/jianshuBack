@@ -11,16 +11,18 @@ class User extends Controller {
   async getUserIntroduce() {
     try {
       const ctx = this.ctx;
-      const res = ctx.model.UserInfo.findOne({
+      console.log(ctx.request.body)
+      const res = await ctx.model.UserInfo.findOne({
         attributes: [ 'introduce' ],
       }, {
         where: {
-          userId: ctx.request.query.id,
+          userId: ctx.request.body.id,
         },
       });
-      this.success(res);
+      console.log(res, this.success)
+      ctx.body = this.success(res);
     } catch (e) {
-      this.fail(e);
+      ctx.body = this.fail(e);
     }
   }
   /**
@@ -36,9 +38,9 @@ class User extends Controller {
           userId: ctx.request.query.id,
         },
       });
-      this.success(res);
+      ctx.body = this.success(res);
     } catch (e) {
-      this.fail(e);
+      ctx.body = this.fail(e);
     }
   }
   /**
@@ -49,14 +51,16 @@ class User extends Controller {
   async setUserIntroduce() {
     try {
       const ctx = this.ctx;
-      const res = ctx.model.UserInfo.update({ introduce: ctx.request.body.introduce }, {
+      console.log(ctx.request.body.introduce, typeof ctx.request.body.id)
+      const res = await ctx.model.UserInfo.findOne({
         where: {
-          userId: ctx.request.body.id,
-        },
-      });
-      this.success(res);
+          user_id: ctx.request.body.id,
+        }})
+      console.log(res.update)
+      const res1 = await res.update({ introduce: ctx.request.body.introduce });
+      ctx.body = this.success(res1);
     } catch (e) {
-      this.fail(e);
+      ctx.body = this.fail(e);
     }
   }
 }
