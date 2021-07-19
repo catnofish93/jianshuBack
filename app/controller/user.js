@@ -19,7 +19,6 @@ class User extends Controller {
           userId: ctx.request.body.id,
         },
       });
-      console.log(res, this.success)
       ctx.body = this.success(res);
     } catch (e) {
       ctx.body = this.fail(e);
@@ -33,11 +32,7 @@ class User extends Controller {
   async getUserInfo() {
     try {
       const ctx = this.ctx;
-      const res = ctx.model.UserInfo.findOne({
-        where: {
-          userId: ctx.request.query.id,
-        },
-      });
+      const res = await ctx.model.UserInfo.findByPk(Number(ctx.request.body.id));
       ctx.body = this.success(res);
     } catch (e) {
       ctx.body = this.fail(e);

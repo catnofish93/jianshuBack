@@ -8,7 +8,7 @@ class Article extends Controller {
   /**
    * @Router POST /articleList
    * @description 获取文章列表
-   * @Request body string search 查询关键字
+   * @Request body string search eg:{search: '1'} 查询关键字
    * @return {Promise<void>}
    */
   async getArticleList() {
@@ -121,26 +121,28 @@ class Article extends Controller {
     try {
       const res = await ctx.model.Zan.findOne({
         where: {
-          userId: ctx.request.body.userId,
-          articleId: ctx.request.body.articleId,
+          user_id: ctx.request.body.userId,
+          article_id: ctx.request.body.articleId,
         },
       });
       if (res) {
-        await ctx.model.Zan.destrory({
+        await ctx.model.Zan.destroy({
           where: {
-            userId: ctx.request.body.userId,
-            articleId: ctx.request.body.articleId,
+            user_id: ctx.request.body.userId,
+            article_id: ctx.request.body.articleId,
           },
         });
+        ctx.body = this.fail('取消点赞成功');
       } else {
         await ctx.model.Zan.create({
-          userId: ctx.request.body.userId,
-          articleId: ctx.request.body.articleId,
+          user_id: ctx.request.body.userId,
+          article_id: ctx.request.body.articleId,
           zan: 1,
         });
+        ctx.body = this.fail('点赞成功');
       }
-      ctx.body = this.fail('点赞成功');
     } catch (e) {
+      console.log(e)
       ctx.body = this.fail('点赞失败');
     }
   }
@@ -161,12 +163,21 @@ class Article extends Controller {
     const ctx = this.ctx;
     try {
       const res = await ctx.model.Article.findAll({
-        limit: ctx.request.body.pageSize,
-        offset: ctx.request.body.pageSize * ctx.request.body.pageNum,
-        userId: ctx.request.body.userId,
+        // limit: ctx.request.body.pageSize,
+        where: {
+          author_id: ctx.request.body.userId
+        },
+        // offset: ctx.request.body.pageSize * ctx.request.body.pageNum,
       });
-      ctx.body = this.total(res, 10, ctx.request.body.pageSize, ctx.request.body.pageNum);
+      const total = await ctx.model.Article.count({
+        where: {
+          author_id: ctx.request.body.userId
+        }
+      })
+      console.log(res)
+      ctx.body = this.success(this.page(res, total, ctx.request.body.pageSize, ctx.request.body.pageNum));
     } catch (e) {
+      console.log(e)
       ctx.body = this.fail('获取文章列表失败');
     }
   }
@@ -175,9 +186,8 @@ class Article extends Controller {
     try {
       const res = await ctx.model.Article.findAll({
         order: [
-          'read_num', 'DESC',
-        ],
-        limit: 5,
+          ['read_num', 'DESC']
+        ]
       });
       ctx.body = this.success(res);
     } catch (e) {
