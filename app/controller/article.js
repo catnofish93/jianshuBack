@@ -39,7 +39,7 @@ class Article extends Controller {
       }
       if (ctx.request.body.search) {
         const res = await ctx.model.Article.findAll({
-          limit: 10,
+          limit: +ctx.request.body.pageSize,
           where: {
             content: {
               [Op.like]: `%${ctx.request.body.search}%`,
@@ -49,13 +49,14 @@ class Article extends Controller {
         ctx.body = this.success(res);
       } else {
         const res = await ctx.model.Article.findAll({
-          limit: ctx.body.pageSize,
+          limit: +ctx.request.body.pageSize,
         });
         console.log(res);
         const { count } = await ctx.model.Article.findAndCountAll();
         ctx.body = this.success(this.page(res, count, 10, 1));
       }
     } catch (e) {
+      console.log(e)
       ctx.body = this.fail('查询文章列表失败');
     }
   }
@@ -163,7 +164,7 @@ class Article extends Controller {
     const ctx = this.ctx;
     try {
       const res = await ctx.model.Article.findAll({
-        // limit: ctx.request.body.pageSize,
+        limit: +ctx.request.body.pageSize,
         where: {
           author_id: ctx.request.body.userId
         },
