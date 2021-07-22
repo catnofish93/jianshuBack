@@ -37,6 +37,7 @@ class Article extends Controller {
           }
         });
       }
+      const { count } = await ctx.model.Article.findAndCountAll();
       if (ctx.request.body.search) {
         const res = await ctx.model.Article.findAll({
           limit: +ctx.request.body.pageSize,
@@ -46,13 +47,12 @@ class Article extends Controller {
             },
           },
         });
-        ctx.body = this.success(res);
+        ctx.body = this.success(this.page(res, count, 10, 1));
       } else {
         const res = await ctx.model.Article.findAll({
           limit: +ctx.request.body.pageSize,
         });
         console.log(res);
-        const { count } = await ctx.model.Article.findAndCountAll();
         ctx.body = this.success(this.page(res, count, 10, 1));
       }
     } catch (e) {
