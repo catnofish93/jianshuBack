@@ -47,7 +47,7 @@ class Article extends Controller {
             },
           },
           order: [
-            ['created_at', 'DESC'],
+            [ 'created_at', 'DESC' ],
           ],
         });
         ctx.body = this.success(this.page(res, count, 10, 1));
@@ -55,8 +55,8 @@ class Article extends Controller {
         const res = await ctx.model.Article.findAll({
           limit: +ctx.request.body.pageSize,
           order: [
-            ['created_at', 'DESC'],
-          ]
+            [ 'created_at', 'DESC' ],
+          ],
         });
         console.log(res);
         ctx.body = this.success(this.page(res, count, 10, 1));
@@ -80,9 +80,29 @@ class Article extends Controller {
       const res = await ctx.model.Article.create({
         title: ctx.request.body.title,
         content: ctx.request.body.content,
-        authorName: ctx.request.body.authorName,
-        authorId: ctx.request.body.authorId,
+        author_name: ctx.request.body.authorName,
+        author_id: ctx.request.body.authorId,
         discription: discription1,
+      });
+      ctx.body = this.success(res);
+    } catch (e) {
+      ctx.body = this.fail('新增文章失败');
+    }
+  }
+  async editArtile() {
+    const ctx = this.ctx;
+    const startIndex = ctx.request.body.content.indexOf('<p>');
+    const endIndex = ctx.request.body.content.indexOf('</p>');
+    const discription1 = ctx.request.body.content.substring(startIndex + 3, endIndex);
+    try {
+      const res = await ctx.model.Article.update({
+        title: ctx.request.body.title,
+        content: ctx.request.body.content,
+        discription: discription1,
+      }, {
+        where: {
+          id: ctx.request.body.id,
+        },
       });
       ctx.body = this.success(res);
     } catch (e) {
