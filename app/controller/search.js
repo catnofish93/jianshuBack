@@ -16,7 +16,7 @@ class LoginController extends Controller {
         attributes: [ 'name' ],
       }, {
         limit: 10,
-        order: ctx.model.col('search_num'),
+        order: ['search_num', 'DESC'],
       });
       ctx.body = this.success(res);
     } catch (e) {

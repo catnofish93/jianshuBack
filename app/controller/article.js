@@ -41,6 +41,7 @@ class Article extends Controller {
       if (ctx.request.body.search) {
         const res = await ctx.model.Article.findAll({
           limit: +ctx.request.body.pageSize,
+          offset: +ctx.request.body.pageNum,
           where: {
             content: {
               [Op.like]: `%${ctx.request.body.search}%`,
@@ -50,16 +51,16 @@ class Article extends Controller {
             [ 'created_at', 'DESC' ],
           ],
         });
-        ctx.body = this.success(this.page(res, count, 10, 1));
+        ctx.body = this.success(this.page(res, count, 10, ctx.request.body.pageNum));
       } else {
         const res = await ctx.model.Article.findAll({
           limit: +ctx.request.body.pageSize,
+          offset: +ctx.request.body.pageNum,
           order: [
             [ 'created_at', 'DESC' ],
           ],
         });
-        console.log(res);
-        ctx.body = this.success(this.page(res, count, 10, 1));
+        ctx.body = this.success(this.page(res, count, 10, ctx.request.body.pageNum));
       }
     } catch (e) {
       console.log(e);
